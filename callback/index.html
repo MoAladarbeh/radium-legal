@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="dark" />
+<meta name="referrer" content="no-referrer" />
+<title>Connecting… · Radium</title>
+<style>
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #0f1211; color: #e9efe9;
+         font: 17px/1.6 "Atkinson Hyperlegible", system-ui, sans-serif; text-align: center; }
+  .dot { width: 34px; height: 34px; margin: 0 auto 18px; border-radius: 50%; background: #6fe3b4; box-shadow: 0 0 30px #6fe3b4; }
+  p { color: #a3b0ab; max-width: 440px; padding: 0 20px; }
+  a { color: #6fe3b4; }
+</style>
+</head>
+<body>
+<div>
+  <div class="dot"></div>
+  <h1 style="font-weight:600;font-size:1.4rem;margin:0 0 6px">Connecting your account…</h1>
+  <p id="msg">Handing the sign-in to Radium on this computer.</p>
+</div>
+<script>
+  // Radium's connect server runs on the creator's own computer. Platforms that refuse a localhost
+  // redirect send the sign-in here, and this page passes it straight on (nothing is stored or sent elsewhere).
+  var target = "http://127.0.0.1:8765/callback/" + location.search;
+  location.replace(target);
+  setTimeout(function () {
+    var m = document.getElementById("msg");
+    m.textContent = "If nothing happens, make sure Radium's worker is running, then ";
+    var a = document.createElement("a"); a.href = target; a.textContent = "continue";
+    m.appendChild(a); m.appendChild(document.createTextNode("."));
+  }, 4000);
+</script>
+</body>
+</html>
